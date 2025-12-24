@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Turno de Navidad</title>
+
+  <link rel="stylesheet" href="./main.css">
+
+  <script defer src="./game.js"></script>
+  <script defer src="./intro.js"></script>
+  <script defer src="./mision1.js"></script>
+  <script defer src="./mision2.js"></script>
+  <script defer src="./mision3.js"></script>
+  <script defer src="./final.js"></script>
+</head>
+
+<body>
+  <main class="card">
+
+    <!-- ===================== -->
+    <!-- INTRO / CUTSCENE -->
+    <!-- ===================== -->
+    <section id="screen-intro" class="intro">
+      <div class="intro-bg" aria-hidden="true"></div>
+
+      <div class="intro-top">
+        <div class="intro-brand">ENERCON · O&amp;M</div>
+        <div class="intro-chip">
+          <span class="dot"></span>
+          <span id="chipTxt">Enlazando SCADA</span>
+        </div>
+      </div>
+
+      <div class="intro-center">
+        <div class="turbine-hero spin-slow" id="turbineHero" aria-hidden="true">
+          <div class="hub"></div>
+          <div class="blade b1"></div>
+          <div class="blade b2"></div>
+          <div class="blade b3"></div>
+        </div>
+
+        <div class="intro-title">INICIO DE TURNO</div>
+        <div class="intro-name">Fernando Moreno</div>
+
+        <div class="boot" id="boot">
+          <div class="line">Autenticando operador…</div>
+          <div class="line">Parque eolico: ONLINE</div>
+          <div class="line">Viento: <span id="windHero">—</span></div>
+          <div class="line">Unidad asignada: <span id="turbHero">E-0<span id="turbRand">01</span></span></div>
+        </div>
+
+        <div class="loader" aria-hidden="true">
+          <div id="loaderFill"></div>
+        </div>
+
+        <button id="startBtn" class="cta" disabled>Iniciar ronda</button>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- UI DEL JUEGO (SOLO M1-M3) -->
+    <!-- ===================== -->
+    <div id="game-ui" class="hidden">
+
+      <header class="header">
+        <div>
+          <h1>Turno de Navidad</h1>
+          <p id="missionText" class="sub"></p>
+        </div>
+        <div id="missionTag" class="tag">M1</div>
+      </header>
+
+      <div id="avatar" class="avatar"></div>
+
+      <div class="hud">
+        <div class="pill">Aciertos: <b id="hits">0</b>/<span id="hitsGoal">3</span></div>
+        <div class="pill">Intentos: <b id="tries">0</b></div>
+      </div>
+
+      <!-- Pantalla M1 -->
+      <section id="screen-m1" class="screen hidden">
+        <div class="track">
+          <div class="zone"></div>
+          <div id="needle" class="needle"></div>
+        </div>
+
+        <button id="actionBtn">Sincronizar</button>
+        <div id="feedback" class="msg">Espera el momento exacto...</div>
+      </section>
+
+      <!-- Pantalla M2 -->
+      <section id="screen-m2" class="screen hidden">
+        <div class="balance">
+          <div class="balance-bar">
+            <div id="balanceFill" class="balance-fill"></div>
+            <div class="balance-center"></div>
+          </div>
+
+          <div class="balance-controls">
+            <button id="leftBtn" class="btn-small">◀</button>
+            <div class="mono">Mantener en el centro por <b id="holdLeft">3.0</b>s</div>
+            <button id="rightBtn" class="btn-small">▶</button>
+          </div>
+        </div>
+
+        <button id="nextFromM2" class="hidden">Continuar</button>
+        <div id="feedback2" class="msg">Usa los botones para equilibrar.</div>
+      </section>
+
+      <!-- Pantalla M3 -->
+      <section id="screen-m3" class="screen hidden">
+
+        <div class="startbar">
+          <div class="start-track" id="startTrack">
+            <div class="start-target" id="startTarget"></div>
+            <div class="start-cursor" id="startCursor"></div>
+          </div>
+
+          <div class="mono">
+            Estabilidad: <b id="stabilityLeft">4.0</b>s · RPM: <b id="rpmTxt">0</b>%
+          </div>
+        </div>
+
+        <div class="balance-controls">
+          <button id="m3Left" class="btn-small">◀</button>
+          <div class="mono">Sigue el punto para arrancar</div>
+          <button id="m3Right" class="btn-small">▶</button>
+        </div>
+
+        <div id="feedback3" class="msg">1) Sigue el punto 2) Mantente encima hasta completar.</div>
+
+      </section>
+    </div>
+
+    <!-- ===================== -->
+    <!-- FINAL (APARTE, SIN HUD) -->
+    <!-- ===================== -->
+    <section id="screen-final" class="final hidden">
+
+      <div class="scratch-wrap">
+        <canvas id="scratchCanvas" width="320" height="160"></canvas>
+        <div id="finalMsg" class="final-msg" aria-hidden="true">
+          TURBINA OK<br>
+          Buen trabajo, operador.<br>
+          Feliz Navidad
+        </div>
+      </div>
+
+      <p class="msg" id="scratchHint">Raspa la nieve con tu dedo para ver el mensaje.</p>
+      <button id="restartBtn" class="cta">Jugar otra vez</button>
+    </section>
+
+  </main>
+</body>
+</html>
